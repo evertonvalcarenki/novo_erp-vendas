@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="text-center my-5">
+  <h1 class="display-4 text-primary">📊 ERP de Vendas</h1>
+  <p class="lead">Sistema simples para gestão de vendas com parcelamento</p>
+  <hr class="my-4">
+</div>
+
+<div class="row text-center">
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">📦 Produtos</h5>
+        <p class="card-text">Cadastre e gerencie seus produtos.</p>
+        <a href="/produtos" class="btn btn-outline-primary">Acessar</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">👥 Clientes</h5>
+        <p class="card-text">Gerencie seus clientes e contatos.</p>
+        <a href="/clientes" class="btn btn-outline-primary">Acessar</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">💳 Vendas</h5>
+        <p class="card-text">Registre vendas com parcelamento.</p>
+        <a href="/vendas" class="btn btn-outline-primary">Acessar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

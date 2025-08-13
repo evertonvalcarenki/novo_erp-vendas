@@ -1,0 +1,77 @@
+<!-- templates/vendas.html -->
+{% extends "base.html" %}
+{% block title %}Vendas - ERP{% endblock %}
+{% block content %}
+<h2>💳 Registrar Nova Venda</h2>
+
+<form method="POST" class="mb-5 p-4 bg-white border rounded shadow">
+  <div class="mb-3">
+    <label class="form-label">Cliente</label>
+    <select name="cliente_id" class="form-select" required>
+      {% for c in clientes %}
+      <option value="{{ c[0] }}">{{ c[1] }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+  <h5>🛒 Itens da Venda</h5>
+  <div class="row mb-3">
+    {% for p in produtos %}
+    <div class="col-md-6 mb-2">
+      <div class="d-flex align-items-center">
+        <span class="me-2" style="min-width: 120px;">{{ p[1] }} (R$ {{ "%.2f"|format(p[2]) }})</span>
+        <input type="number" name="quantidade" value="0" min="0" class="form-control" style="max-width: 80px;">
+        <input type="hidden" name="produto_id" value="{{ p[0] }}">
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">Número de Parcelas</label>
+    <select name="parcelas" class="form-select" style="max-width: 200px;">
+      <option value="1">1x</option>
+      <option value="2">2x</option>
+      <option value="3">3x</option>
+      <option value="6">6x</option>
+      <option value="12">12x</option>
+    </select>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Registrar Venda</button>
+</form>
+
+<h3>📌 Vendas Realizadas</h3>
+{% if vendas %}
+<div class="table-responsive">
+  <table class="table table-striped table-hover bg-white rounded shadow">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Data</th>
+        <th>Total</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for v in vendas %}
+      <tr>
+        <td>{{ v[0] }}</td>
+        <td>{{ v[1] }}</td>
+        <td>{{ v[2] }}</td>
+        <td>R$ {{ "%.2f"|format(v[3]) }}</td>
+        <td>
+          <a href="/venda/{{ v[0] }}" class="btn btn-sm btn-outline-info">Ver Parcelas</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<p class="text-muted">Nenhuma venda registrada ainda.</p>
+{% endif %}
+
+<a href="/" class="btn btn-secondary">← Início</a>
+{% endblock %}

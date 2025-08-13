@@ -1,0 +1,46 @@
+<!-- templates/detalhes_venda.html -->
+{% extends "base.html" %}
+{% block title %}Venda #{{ venda[0] }} - ERP{% endblock %}
+{% block content %}
+<h2>🔍 Detalhes da Venda #{{ venda[0] }}</h2>
+
+<div class="card mb-4">
+  <div class="card-body">
+    <p><strong>Cliente:</strong> {{ venda[1] }}</p>
+    <p><strong>Data:</strong> {{ venda[2] }}</p>
+    <p><strong>Total:</strong> R$ {{ "%.2f"|format(venda[3]) }}</p>
+  </div>
+</div>
+
+<h4>📅 Parcelas</h4>
+{% if parcelas %}
+<table class="table table-bordered bg-white rounded shadow">
+  <thead class="table-light">
+    <tr>
+      <th>#</th>
+      <th>Valor</th>
+      <th>Vencimento</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i, p in enumerate(parcelas) %}
+    <tr>
+      <td>{{ loop.index }}/{{ loop.length }}</td>
+      <td>R$ {{ "%.2f"|format(p[0]) }}</td>
+      <td>{{ p[1] }}</td>
+      <td>
+        <span class="badge bg-{% if p[2] %}success{% else %}warning text-dark{% endif %}">
+          {% if p[2] %}Pago{% else %}Pendente{% endif %}
+        </span>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="text-muted">Nenhuma parcela encontrada.</p>
+{% endif %}
+
+<a href="/vendas" class="btn btn-secondary">← Voltar às Vendas</a>
+{% endblock %}
